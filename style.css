@@ -1,0 +1,769 @@
+* {
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: none;
+    /*dùng để bỏ dấu gách chântrong thẻ a*/
+    scroll-behavior: smooth;
+    /* để cuộn trang mượt mà khi nhấp vào link hoặc khi dùng JavaScript cuộn đến phần khác. */
+}
+
+body {
+    width: 100%;
+    height: auto;
+    background-color: black;
+    overflow-x: hidden;
+    /* Khi nội dung tràn ra ngoài chiều ngang, nó không hiển thị thanh cuộn, và phần tràn sẽ bị che đi. */
+
+}
+
+/*Custom scroll Bar CSS*/
+/* Phân thanh cuộn */
+::-webkit-scrollbar {
+    width: 10px;
+
+}
+
+/* Phần đường rãnh của thanh cuộn. phần mà màu rảnh bị mờ  màu trắng á */
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+/* Phần thanh kéo (cục di chuyển). mk cầm di chuyển qua lại */
+::-webkit-scrollbar-thumb {
+    background: #c04e4e;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c04e4e;
+}
+
+/*nav styling*/
+nav {
+    width: 100%;
+    height: 10vh;
+}
+
+.nav-contorni {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /*giúp dễ dàng căn lề và ngang dọc*/
+    justify-content: space-around;
+    /*thoe chiều ngang*/
+    align-items: center;
+    /*theo chiều dọc*/
+
+}
+
+.logo {
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    /* chư dậm thêm*/
+}
+
+.logo span {
+    color: #c04e4e;
+    text-shadow: 0 0 10px #c04e4e;
+    /* thuộc tính dùng để thêm bóng cho chữ. */
+
+}
+
+.hamburg,
+.cancel {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    font-size: clamp(2.5rem, 0.5rem+5vw, 3rem);
+}
+
+.nav-contorni .links {
+    display: flex;
+
+}
+
+.nav-contorni .links a {
+    position: relative;
+    font-size: 1.2rem;
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
+    /*xoá bỏ gạch chân*/
+    font-weight: 500;
+    transition: 0.3s linear;
+    /*linear mọi thời gian đều chia đều quảng đường*/
+    /* là top 20px là dịch xuống và left 20px dịch phải*/
+
+}
+
+.nav-contorni .links a::before {
+    position: absolute;
+    /*dựa vào relative ở trên á*/
+    content: "";
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #c04e4e;
+    /* chỉ đổi màu nền*/
+    transition: 0.3s linear;
+
+}
+
+.nav-contorni .links a:hover::before {
+    width: 100;
+}
+
+.nav-contorni .links a:hover {
+    color: #c04e4e;
+}
+
+.dropdown {
+    z-index: 100;
+    /* Xác định thứ tự chồng lớp (layer) của phần tử.
+Số càng lớn → phần tử càng nổi lên trên các phần tử khác. chỉ hoạt động khi có postion*/
+
+    position: absolute;
+    top: 0;
+    transform: translateY(-500px);
+    width: 100%;
+    height: auto;
+    backdrop-filter: blur(4px) brightness(40%);
+    /* Tạo hiệu ứng làm mờ và chỉnh sáng nền phía sau phần tử.
+blur(4px) → Làm mờ nền phía sau 4px.
+brightness(40%) → Làm nền phía sau tối đi 60% (chỉ còn 40% độ sáng). */
+    box-shadow: 0 0 20px black;
+    transition: 0.2s linear;
+}
+
+.dropdown .links a {
+    color: white;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    padding: 15px 0;
+    align-items: center;
+    transition: 0.2s linear;
+}
+
+.dropdown .links a:hover {
+    background-color: #c04e4e;
+
+}
+
+section {
+    width: 100%;
+    min-height: 90vh;
+}
+
+section .main-container {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 100px;
+    align-items: center;
+
+}
+
+.main-container .image {
+    width: 500px;
+    height: 80vh;
+    border-radius: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 50px #c04e4e;
+}
+
+.main-container .image img {
+    width: 110%;
+}
+
+.main-container .image:hover {
+    animation: animate 1.5s ease-in-out infinite;
+}
+
+@keyframes animate {
+    0% {
+        scale: 1;
+        /* scale là phóng to va thu nhỏ 1 là phong to 100%*/
+    }
+
+    50% {
+        scale: 1.05;
+
+    }
+
+    100% {
+        scale: 1.1;
+    }
+}
+
+.main-container .content {
+    color: white;
+    width: 40%;
+}
+
+.content h1 {
+    font-size: clamp(1rem, 1rem+5vw, 11.8rem);
+}
+
+.content h1 span {
+    /*chỉ những chữ đọc bọc trong span*/
+    color: #c04e4e;
+    text-shadow: 0 0 10px #c04e4e;
+    font-size: 34px;
+    /* làm độ bóng*/
+}
+
+.content .typerwriter {
+    font-size: clamp(1rem, 1rem+5vw, 2.5rem);
+    font-weight: 600;
+}
+
+.content .typerwriter-text {
+    color: #c04e4e;
+    text-shadow: 0 0 10px #c04e4e;
+}
+
+.content p {
+    font-size: clamp(0.4rem, 0.2rem+9vw, 1rem);
+    margin: 10px 0;
+}
+
+.social-Skilss i {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    border: 0.2rem solid #c04e4e;
+    border-radius: 50px;
+    color: #c04e4e;
+    margin: 5px 15px;
+    font-size: 1.5rem;
+    transition: 0.2s linear;
+
+}
+
+.social-Skilss i:hover {
+
+    scale: 1.3;
+    color: black;
+    background-color: #c04e4e;
+    filter: drop-shadow(0 0 10px #c04e4e);
+}
+
+.content button {
+    width: 50%;
+    height: 6vh;
+    margin: 30px;
+    background-color: #c04e4e;
+    /*Màu nền này*/
+    color: white;
+    /* Màu chữ */
+    border: none;
+    outline: none;
+    font-size: 120%;
+    font-weight: 700;
+    border-radius: 5%;
+    transition: 0.3s linear;
+    /*thường đi chung với các hover active links đồ j đó*/
+}
+
+
+.content button:hover {
+
+    scale: 1.1;
+    /*thường sài khi có transition*/
+    color: #c04e4e;
+    border: 2px solid #c04e4e;
+    background-color: transparent;
+    /* màu nền trong suốt nó hiện ra đen*/
+    font-weight: 700;
+    box-shadow: 0 0 40px #c04e4e;
+}
+
+/* Phần main content về nội dung trang kế tiếp*/
+
+section .content {
+    width: 80%;
+    margin: 0px auto;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.about .about-delit {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section .title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+section .title span {
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 8px;
+
+}
+
+section .title span::before,
+section .title span::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: #c04e4e;
+    left: 0;
+    bottom: 0;
+}
+
+section .title span::after {
+    bottom: -7px;
+    width: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.about.about-delit .left {
+    width: 45%;
+}
+
+.about .left img {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+
+}
+
+.about-delit .righ {
+    width: 55%;
+}
+
+section .topic {
+    color: white;
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.about-delit .right p {
+    text-align: justify;
+    /* chữ nằm ở đâu*/
+    color: white;
+}
+
+section .button {
+    margin: 16px 0;
+
+}
+
+section .button button {
+    outline: none;
+    /* ko bị làm nhè*/
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 25px;
+    font-weight: 300;
+    background-color: #c04e4e;
+    color: white;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+section .button button:hover {
+    border-color: #c04e4e;
+    background-color: white;
+    color: #c04e4e;
+}
+
+.skills {
+    background: black;
+}
+
+.skills .content {
+    padding: 40px 0;
+}
+
+.skills .skills-detial {
+    display: flex;
+    justify-content: space-between;
+    /* cách nhau mà gần nhau*/
+    align-items: center;
+
+}
+
+.skills-detial .text {
+    width: 50%;
+}
+
+.skills-detial p {
+    color: white;
+    text-align: justify;
+    /* căn lề trái và phải nhìn cho gọn*/
+}
+
+.skills .skills-detial .experience {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.skills-detial .experience .num {
+    color: white;
+    font-size: 80px;
+
+}
+
+.skills-detial .experience .exp {
+    color: white;
+    margin: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 16px;
+
+}
+
+.skills-detial .boxes {
+    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20%;
+    /*tạo khoảng cách giữa các dòng*/
+}
+
+.skills-detial .box {
+    width: calc(100% /2-20px);
+    margin: 20px 0;
+}
+
+.skills-detial .boxes .topic {
+    font-size: 20px;
+    color: #c04e4e;
+}
+
+.skills-detial .boxes .per {
+    font-size: 60px;
+    color: #c04e4e;
+}
+
+.services .boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.services .boxes .box {
+    margin: 20px 0;
+    width: calc(100%/3 - 20px);
+    /* Mỗi box chiếm 1/3 hàng, trừ gap */
+    text-align: center;
+    border-radius: 12px;
+    padding: 30px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0);
+    cursor: default;
+    /*con trỏ vẫn giữ yên ko biến thành chuột*/
+    color: white;
+    font-size: 1rem;
+    transition: all 0.4s ease;
+
+}
+
+.services .boxes .box:hover {
+    background: #c04e4e;
+    color: white;
+}
+
+.services .boxes .box .icon {
+    background-color: #c04e4e;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    /*độ cao của dòng chữa*/
+    font-size: 18px;
+    color: white;
+    margin: 0 auto;
+    transition: all 0.4s ease;
+}
+
+.boxes .box:hover .icon {
+    background-color: white;
+    color: #c04e4e;
+}
+
+.services .boxes .box:hover .topic,
+.services .boxes .box:hover p {
+    color: white;
+    transition: all 0.4s ease;
+}
+
+.services .boxes .box:hover .topic,
+.services .boxes .box:hover p {
+    color: white;
+
+}
+
+/* contact me CSS*/
+
+.contact {
+    background: black;
+}
+
+.contact .content {
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.contact .text {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+}
+
+footer {
+    background: #c04e4e;
+    padding: 15px 0;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
+footer .text span {
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+}
+
+footer .text span a {
+
+    font-weight: 400;
+    color: white;
+}
+
+footer .text span a:hover {
+
+    text-decoration: none;
+    /*ko hiện dấu gạch chân phía dưới*/
+}
+
+.scroll-button a {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    background-color: #c04e4e;
+    padding: 7px 12px;
+    font-size: 18px;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0);
+    display: none;
+}
+
+@media (max-width:1000px) {
+    .about .about-delit {
+        justify-content: center;
+        flex-direction: column;
+        /*xếp theo chiều dọc từ trên xuống*/
+    }
+
+    .about .about-delit .left {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .about .about-delit .right {
+        width: 90%;
+        margin: 40px 0;
+    }
+
+    .services .boxes .box {
+        margin: 20px 0;
+        width: calc(100%/2-20px);
+    }
+}
+
+@media (max-width:900px) {
+    .about .left img {
+        height: 350px;
+        width: 350px;
+    }
+}
+
+@media (max-width:960px) {
+    nav .logo {
+        position: absolute;
+        top: 16px;
+        left: 15px;
+        font-size: 1.5rem;
+    }
+
+    section .main-container {
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-contorni .links {
+        display: none;
+    }
+
+    .hamburg,
+    .cancel {
+        opacity: 1;
+        pointer-events: visible;
+    }
+
+    .main-container .content {
+        margin-top: 20px;
+        width: 80%;
+    }
+
+    .social-Skilss {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 2.5rem;
+    }
+
+    .main-container .image {
+        z-index: -1;
+        width: 50%;
+        height: 60%;
+    }
+
+    .skills .skills-detial {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .skills-detial .text {
+        width: 100%;
+        margin-bottom: 50px;
+
+    }
+
+    .skills-detial .boxes {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .services .boxes .box {
+        margin: 20px 0;
+        width: 100%;
+
+    }
+
+    .contact .text {
+        width: 100%;
+    }
+}
+
+@media (max-width:500) {
+    main-container .image {
+        width: 50%;
+        height: 60%;
+        margin-bottom: 0px;
+    }
+
+    .main-container .content {
+        width: 80%;
+    }
+
+    .main-container button {
+        margin-top: 15px;
+    }
+
+    .skills-detial .boxes .per {
+        font-size: 50px;
+
+    }
+}
+
+.typerwriter {
+    font-size: 34px;
+    font-weight: 600;
+    min-width: 280px;
+
+}
+
+
+
+.typerwriter-text span {
+    position: relative;
+    left: 20px;
+}
+
+.typerwriter span::before {
+    content: "SoftWare DeveLoper";
+    color: rgba(245, 34, 34, 0.637);
+
+    animation: words 15s infinite;
+}
+
+.typerwriter span::after {
+
+    content: "";
+    background-color: black;
+    position: absolute;
+    width: calc(100%+8px);
+    height: 100;
+    border-left: 30px solid black;
+    right: -8;
+    animation: cursor 0.6s infinite;
+}
+
+@keyframes cursor {
+    to {
+        border-left: 3px solid rgba(199, 45, 45, 0.884);
+    }
+}
+
+@keyframes words {
+
+    0%,
+    20% {
+        content: "Web Developer";
+    }
+
+    21%,
+    40% {
+        content: "Developer";
+    }
+
+    41%,
+    60% {
+        content: "Web Desinger";
+    }
+
+    61%,
+    80% {
+        content: "Student";
+    }
+
+    81%,
+    100% {
+        content: "JavaScript";
+    }
+}
